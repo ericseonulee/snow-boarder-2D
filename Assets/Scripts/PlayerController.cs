@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private SurfaceEffector2D surfaceEffector2D;
     private Rigidbody2D rb2d;
+    private bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void BoostPlayer() {
-        if (Input.GetKey(KeyCode.Space)) {
+        if (canMove && Input.GetKey(KeyCode.Space)) {
             surfaceEffector2D.speed = _boostSpeed;
             _boostEffect.Play();
         }
@@ -45,11 +46,17 @@ public class PlayerController : MonoBehaviour
     }
 
     private void RotatePlayer() {
-        if (Input.GetKey(KeyCode.LeftArrow)) {
-            rb2d.AddTorque(_torqueAmount);
+        if (canMove) {
+            if (Input.GetKey(KeyCode.LeftArrow)) {
+                rb2d.AddTorque(_torqueAmount);
+            }
+            else if (Input.GetKey(KeyCode.RightArrow)) {
+                rb2d.AddTorque(-_torqueAmount);
+            }
         }
-        else if (Input.GetKey(KeyCode.RightArrow)) {
-            rb2d.AddTorque(-_torqueAmount);
-        }
+    }
+
+    public void DisableControl() {
+        canMove = false;
     }
 }
