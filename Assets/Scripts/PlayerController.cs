@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _baseSpeed = 10f;
 
     [SerializeField] private ParticleSystem _boostEffect;
+
     private SurfaceEffector2D surfaceEffector2D;
     private Rigidbody2D rb2d;
 
